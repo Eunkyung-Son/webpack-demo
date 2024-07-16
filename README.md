@@ -1,4 +1,4 @@
-### 2024.07.17
+# 2024.07.17
 
 ## 1. 파일 번들링
    Webpack은 엔트리 포인트로 지정된 파일(./src/index.js)을 시작으로, 해당 파일에서 가져오는 모든 모듈과 의존성을 하나의 파일(main.js)로 번들링합니다.
@@ -25,23 +25,23 @@
 
     **기본 플러그인들**
 
-   # DefinePlugin
+   ### DefinePlugin
    이 플러그인은 process.env.NODE_ENV를 'production'으로 설정하여, 코드 내부에서 환경에 따라 동작을 다르게 할 수 있게 합니다.
    예를 들어, if (process.env.NODE_ENV === 'production') { ... } 같은 조건문이 있습니다.
 
-   # TerserPlugin
+   ### TerserPlugin
    이 플러그인은 자바스크립트 코드를 난독화하고 압축합니다.
    기본적으로 production 모드에서 활성화되어 코드 크기를 최소화합니다.
    
-   # ModuleConcatenationPlugin
+   ### ModuleConcatenationPlugin
    이 플러그인은 스코프 호이스팅(scope hoisting)을 통해 더 빠르고 작은 번들을 생성합니다.
    모듈 간의 중복된 코드를 줄이고, 실행 속도를 향상시킵니다.
 
-   # NoEmitOnErrorsPlugin
+   ### NoEmitOnErrorsPlugin
    컴파일 도중 에러가 발생했을 때, 번들을 생성하지 않도록 합니다.
    이로 인해 실패한 빌드가 배포되지 않도록 합니다.
 
-   # EnvironmentPlugin
+   ### EnvironmentPlugin
    환경 변수를 설정하는 플러그인으로, process.env.NODE_ENV와 같은 변수를 설정합니다.
 
 기본 설정으로 인한 플러그인 활성화 Webpack이 production 모드에서 기본적으로 활성화하는 플러그인들은 아래와 같은 명령어를 통해 확인할 수 있습니다:
@@ -50,7 +50,7 @@
 
 이 명령어를 실행하면, Webpack은 기본적으로 위에서 언급한 플러그인들을 활성화하여 번들링 과정을 최적화합니다.
 
-### 요약
+# 요약
 현재 상황에서, production 모드의 Webpack이 수행하는 주요 작업은 다음과 같습니다:
 
 - 모든 모듈과 의존성을 하나의 번들 파일로 묶기
