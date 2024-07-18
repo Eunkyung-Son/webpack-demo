@@ -18,6 +18,14 @@ module.exports = {
         // loader의 결과를 다음 loader로 전달
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
     ],
   },
 };

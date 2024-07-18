@@ -1,5 +1,6 @@
 import _ from "lodash";
 import "./style.css";
+import MyLocalImage from "./image.png";
 
 function component() {
   const element = document.createElement("div");
@@ -7,6 +8,11 @@ function component() {
 
   element.innerHTML = _.join(["Hello", "webpack"], " ");
   element.classList.add("hello");
+
+  const myImage = new Image();
+  myImage.src = MyLocalImage;
+
+  element.appendChild(myImage);
 
   return element;
 }
