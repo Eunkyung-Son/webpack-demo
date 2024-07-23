@@ -1,15 +1,27 @@
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const path = require("path");
 
 module.exports = {
   mode: "production",
-  entry: "./src/index.js",
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+  entry: {
+    index: "./src/index.js",
+    print: "./src/print.js",
   },
-  plugins: [new BundleAnalyzerPlugin()],
+  output: {
+    // filename: "bundle.js",
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+  plugins: [
+    new BundleAnalyzerPlugin(),
+    new HtmlWebpackPlugin({
+      title: "Output Management",
+    }),
+  ],
   devtool: "source-map",
   module: {
     rules: [
