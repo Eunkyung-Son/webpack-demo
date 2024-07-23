@@ -5,11 +5,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
     index: "./src/index.js",
     print: "./src/print.js",
   },
+  // devtool: "inline-source-map",
   output: {
     // filename: "bundle.js",
     filename: "[name].bundle.js",
@@ -17,12 +18,13 @@ module.exports = {
     clean: true,
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
-      title: "Output Management",
+      // title: "Output Management",
+      title: "Development",
     }),
   ],
-  devtool: "source-map",
+  // devtool: "source-map",
   module: {
     rules: [
       {
