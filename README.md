@@ -111,3 +111,20 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
 - 이전까지는 모든 에셋을 `index.html` 파일에 수동으로 추가했었습니다. 하지만 엔트리 포인트의 이름을 변경하거나 새 엔트리 포인트를 추가하면 index.html 은 이전에 수동으로 추가한 에셋의 이름을 참조합니다. `HtmlWebpackPlugin` 플러그인을 통하여 dist 안에 `index.html` 파일이 존재하더라도 새로 생성된 파일로 대체하며, 모든 번들이 자동으로 `index.html` 파일에 추가됩니다.
 
 - 사용하는 파일만 생성되도록 빌드 전 `/dist` 폴더를 정리해주는 옵션인 output.clean 옵션이 있습니다.
+
+## DEVELOPMENT
+
+### USING SOURCEMAP
+
+- webpack이 소스 코드를 번들로 묶을 때, 오류와 경고의 원래 위치를 추적하기 어려울 수 있습니다. 예를 들어, 세 개의 소스 파일(a.js, b.js, 그리고 c.js)을 하나의 번들로 묶고 하나의 소스 파일이 오류가 있는 경우, 스택 추적은 단순히 bundle.js를 가리킵니다.
+  
+- 오류와 경고를 쉽게 추적할 수 있도록, JavaScript는 컴파일된 코드를 원래 소스로 매핑하는 소스맵을 제공합니다. b.js에서 오류가 발생한 경우, 소스맵에서 정확히 알려줍니다.
+
+  - 소스 맵 사용:
+  <img width="541" alt="스크린샷 2024-07-24 오전 1 06 02" src="https://github.com/user-attachments/assets/80c4a488-aec7-4c0d-8f1f-ac819e735f5b">
+
+  
+  - 소스 맵 미사용:
+  ![image](https://github.com/user-attachments/assets/21853365-c1cd-40ed-9545-65b5f8e71c50)
+
+
