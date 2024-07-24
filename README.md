@@ -121,10 +121,10 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
 - 오류와 경고를 쉽게 추적할 수 있도록, JavaScript는 컴파일된 코드를 원래 소스로 매핑하는 소스맵을 제공합니다. b.js에서 오류가 발생한 경우, 소스맵에서 정확히 알려줍니다.
 
   - 소스 맵 사용:
-  <img width="541" alt="스크린샷 2024-07-24 오전 1 06 02" src="https://github.com/user-attachments/assets/80c4a488-aec7-4c0d-8f1f-ac819e735f5b">
-
+  <img width="541" alt="스크린샷 2024-07-24 오전 1 06 02" src="https://github.com/user-attachments/assets/9093b739-acb3-45f4-9e42-06b4b403f488">
   
   - 소스 맵 미사용:
-  ![image](https://github.com/user-attachments/assets/21853365-c1cd-40ed-9545-65b5f8e71c50)
+  <img width="550" alt="스크린샷 2024-07-24 오전 1 05 33" src="https://github.com/user-attachments/assets/8bf3ab6f-eb08-4be1-8074-6968a1e9eeed">
+
 
 
