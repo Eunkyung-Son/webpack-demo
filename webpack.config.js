@@ -23,6 +23,7 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: "/",
   },
   /** 단일 html 페이지에 하나 이상의 엔트리 포인트가 있기에 추가 */
   optimization: {
