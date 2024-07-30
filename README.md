@@ -126,5 +126,27 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
   - 소스 맵 미사용:
   <img width="550" alt="스크린샷 2024-07-24 오전 1 05 33" src="https://github.com/user-attachments/assets/8bf3ab6f-eb08-4be1-8074-6968a1e9eeed">
 
+### USING WATCH MODE
+
+- webpack이 디펜던시 그래프 내의 모든 파일에서의 변경사항을 "감시"하도록 지시할 수 있습니다. 파일 중 하나가 업데이트되면, 코드가 다시 컴파일되므로 전체 빌드를 수동으로 실행할 필요가 없습니다.
+
+- 변경사항을 확인하려면 브라우저를 새로고침 해야 합니다. 이것을 자동으로 하는 `webpack-dev-server` 가 있습니다.
+
+### USING webpack-dev-server
+
+- 메모리 내 번들 파일:
+  - `src/index.js`를 번들링하여 `dist/bundle.js`로 메모리에 저장합니다.
+
+- 서버 루트 경로에 마운트:
+  - 메모리에 저장된 `dist/bundle.js` 파일을 서버의 `/dist/` 경로에 마운트합니다. 브라우저에서 `http://localhost:8080/dist/bundle.js`로 접근할 수 있습니다.
+    
+- 디스크에 파일 작성 안 함:
+  - `dist/` 디렉터리 내에 실제 파일 `bundle.js`는 존재하지 않습니다. 모든 번들 파일은 메모리 내에만 존재합니다.
+
+- `dist/` 디렉터리를 삭제하고 `webpack serve --open` 을 실행하면 `dist/` 디렉터리 내부에 번들 파일이 생성되지 않았지만 서버를 통해 메모리에 있는 파일을 제공하기 때문에 정상적으로 동작합니다.
 
 
+### USING webpack-dev-middleware
+
+- `webpack-dev-middleware`는 `webpack`에서 처리한 파일을 서버로 내보내는 래퍼 입니다.
+- `webpack-dev-middleware`와 `express` 서버를 결합할 수 있고 포트 번호를 설정할 수 있습니다.
