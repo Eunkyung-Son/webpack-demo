@@ -150,3 +150,38 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
 
 - `webpack-dev-middleware`는 `webpack`에서 처리한 파일을 서버로 내보내는 래퍼 입니다.
 - `webpack-dev-middleware`와 `express` 서버를 결합할 수 있고 포트 번호를 설정할 수 있습니다.
+
+# 2024.07.31
+
+## Code Splitting
+
+- 코드 스플리팅은 webpack의 가장 매력적인 기능 중 하나입니다. 이 기능을 사용하여 코드를 다양한 번들로 분할하고, 요청에 따라 로드하거나 병렬로 로드할 수 있습니다. 더 작은 번들을 만들고 리소스 우선순위를 올바르게 제어하기 위해서 사용하며, 잘 활용하면 로드 시간에 큰 영향을 끼칠 수 있습니다.
+
+### Entry Points
+
+- 코드를 분할하는 가장 쉽고 직관적인 방법이지만 다른 방법에 비해 수동적이고, 몇 가지 함정이 있습니다.
+
+빌드 로그를 보면 다음과 같은 정보가 있습니다:
+```
+[webpack-cli] Compilation finished
+asset index.bundle.js 553 KiB [emitted] (name: index)
+asset another.bundle.js 553 KiB [emitted] (name: another)
+runtime modules 2.49 KiB 12 modules
+cacheable modules 530 KiB
+  ./src/index.js 257 bytes [built] [code generated]
+  ./src/another-module.js 84 bytes [built] [code generated]
+  ./node_modules/lodash/lodash.js 530 KiB [built] [code generated]
+webpack 5.4.0 compiled successfully in 245 ms
+```
+
+이 로그에서 몇 가지 중요한 점을 확인할 수 있습니다.
+- 번들 파일의 크기:
+  - index.bundle.js와 another.bundle.js 모두 553 KiB입니다.
+- 모듈 크기:
+  - ./node_modules/lodash/lodash.js는 530 KiB입니다.
+- 모듈의 포함 여부:
+  - ./src/index.js, ./src/another-module.js, 그리고 ./node_modules/lodash/lodash.js가 cacheable modules로 나열되어 있으며, 이는 이 모듈들이 번들에 포함되었음을 나타냅니다.
+
+- `webpack-bundle-analyzer` 를 통한 분석 결과에서도 확인할 수 있습니다.
+  - <img width="756" alt="image" src="https://github.com/user-attachments/assets/2e774461-88f9-4a6b-ab7c-20c42f2d6965">
+
