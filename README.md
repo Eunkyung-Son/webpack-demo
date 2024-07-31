@@ -185,3 +185,27 @@ webpack 5.4.0 compiled successfully in 245 ms
 - `webpack-bundle-analyzer` 를 통한 분석 결과에서도 확인할 수 있습니다.
   - <img width="756" alt="image" src="https://github.com/user-attachments/assets/2e774461-88f9-4a6b-ab7c-20c42f2d6965">
 
+
+📌 자주 사용하는 라이브러리 혹은 프레임워크에서의 entry points
+- React와 같은 SPA의 경우 하나의 html 파일과 하나의 엔트리 포인트를 가집니다.
+- Next.js와 같은 프레임워크의 경우 app/pages 디렉토리 내의 각 파일이 엔트리 포인트 입니다. 단일 html 파일에 각 엔트리 포인트가 동적으로 렌더링됩니다.
+  - 위의 경우 html과 엔트리포인트가 1:1 대응이 됩니다.
+
+📌 MFA (마이크로 프론트엔드 아키텍쳐)
+- 하나의 페이지 안에 `home` 탭은 `home.bundle.js`, `blog` 탭은 `blog.bundle.js` 를 사용하는 경우 엔트리 포인트가 여러개 입니다.
+  ```
+  <!DOCTYPE html>
+    <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Multi-Page Application</title>
+      </head>
+      <body>
+          <div id="home"></div>
+          <div id="blog"></div>
+          <script src="home.bundle.js"></script>
+          <script src="blog.bundle.js"></script>
+      </body>
+    </html>
+```
