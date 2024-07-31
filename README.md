@@ -151,7 +151,7 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
 - `webpack-dev-middleware`는 `webpack`에서 처리한 파일을 서버로 내보내는 래퍼 입니다.
 - `webpack-dev-middleware`와 `express` 서버를 결합할 수 있고 포트 번호를 설정할 수 있습니다.
 
-# 2024.07.31
+# 2024.07.31 / 08.01
 
 ## Code Splitting
 
@@ -195,17 +195,55 @@ webpack 5.4.0 compiled successfully in 245 ms
 - 하나의 페이지 안에 `home` 탭은 `home.bundle.js`, `blog` 탭은 `blog.bundle.js` 를 사용하는 경우 엔트리 포인트가 여러개 입니다.
   ```
   <!DOCTYPE html>
-    <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Multi-Page Application</title>
-      </head>
-      <body>
-          <div id="home"></div>
-          <div id="blog"></div>
-          <script src="home.bundle.js"></script>
-          <script src="blog.bundle.js"></script>
-      </body>
-    </html>
+  <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Multi-Page Application</title>
+    </head>
+    <body>
+        <div id="home"></div>
+        <div id="blog"></div>
+        <script src="home.bundle.js"></script>
+        <script src="blog.bundle.js"></script>
+    </body>
+  </html>
+  ```
+
+### Prevent Duplication
+
+`dependOn` 옵션을 사용하여 청크간 모듈을 공유할 수 있습니다.
+빌드 로그:
 ```
+assets by status 4.57 MiB [cached] 2 assets
+assets by status 1.43 MiB [emitted]
+  asset shared.bundle.js 1.37 MiB [emitted] (name: shared)
+  asset index.bundle.js 55.6 KiB [emitted] (name: index)
+  asset another.bundle.js 1.57 KiB [emitted] (name: another)
+  asset index.html 383 bytes [emitted]
+asset runtime.bundle.js 16.1 KiB [compared for emit] (name: runtime)
+Entrypoint index 55.6 KiB (4.57 MiB) = index.bundle.js 2 auxiliary assets
+Entrypoint another 1.57 KiB = another.bundle.js
+Entrypoint shared 1.39 MiB = runtime.bundle.js 16.1 KiB shared.bundle.js 1.37 MiB
+runtime modules 3.76 KiB 10 modules
+javascript modules 545 KiB
+  modules by path ./node_modules/.pnpm/ 541 KiB
+    modules by path ./node_modules/.pnpm/style-loader@4.0.0_webpack@5.93.0_webpack-cli@5.1.4_/node_m...(truncated) 5.84 KiB 6 modules
+    modules by path ./node_modules/.pnpm/css-loader@7.1.2_webpack@5.93.0_webpack-cli@5.1.4_/node_mod...(truncated) 3.33 KiB 3 modules
+    ./node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js 531 KiB [built] [code generated]
+  modules by path ./src/ 4.32 KiB
+    modules by path ./src/*.js 874 bytes 3 modules
+    modules by path ./src/*.css 3.47 KiB
+      ./src/style.css 1.66 KiB [built] [code generated]
+      ./node_modules/.pnpm/css-loader@7.1.2_webpack@5.93.0_webpack-cli@5.1.4_/node_modules/css-loader/dist/cjs.js!./src/style.css 1.81 KiB [built] [code generated]
+asset modules 84 bytes (javascript) 4.57 MiB (asset)
+  ./src/image.png 42 bytes (javascript) 2.6 MiB (asset) [built] [code generated]
+  ./src/PretendardVariable.woff2 42 bytes (javascript) 1.96 MiB (asset) [built] [code generated]
+webpack 5.93.0 compiled successfully in 365 ms
+```
+
+- 기존 `index.bundle.js` `another.bundle.js`에 포함되어 있던 lodash가 분리되어 `share.bundle.js` 파일에 별도로 분리됩니다.
+
+- `webpack-bundle-analyzer` 를 통한 분석 결과에서도 확인할 수 있습니다.
+<img width="503" alt="image" src="https://github.com/user-attachments/assets/3a7dc306-c114-46b2-bea2-33213d022060">
+
