@@ -151,7 +151,7 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
 - `webpack-dev-middleware`는 `webpack`에서 처리한 파일을 서버로 내보내는 래퍼 입니다.
 - `webpack-dev-middleware`와 `express` 서버를 결합할 수 있고 포트 번호를 설정할 수 있습니다.
 
-# 2024.07.31 / 08.01
+# 2024.07.31 / 08.01 / 08.05
 
 ## Code Splitting
 
@@ -246,4 +246,42 @@ webpack 5.93.0 compiled successfully in 365 ms
 
 - `webpack-bundle-analyzer` 를 통한 분석 결과에서도 확인할 수 있습니다.
 <img width="503" alt="image" src="https://github.com/user-attachments/assets/3a7dc306-c114-46b2-bea2-33213d022060">
+
+
+`SplitChunksPlugin` 을 통하여 엔트리 청크 혹은 완전히 새로운 청크로 공통 의존성을 추출할 수 있습니다.
+빌드로그:
+```
+assets by status 4.57 MiB [cached] 2 assets
+assets by path . 1.44 MiB
+  asset shared.bundle.js 1.39 MiB [emitted] (name: shared) (id hint: vendors)
+  asset index.bundle.js 55.5 KiB [emitted] (name: index)
+  asset another.bundle.js 1.49 KiB [emitted] (name: another)
+  asset index.html 335 bytes [emitted]
+runtime modules 3.76 KiB 10 modules
+javascript modules 545 KiB
+  modules by path ./node_modules/.pnpm/ 541 KiB
+    modules by path ./node_modules/.pnpm/style-loader@4.0.0_webpack@5.93.0_webpack-cli@5.1.4_/node_m...(truncated) 5.84 KiB 6 modules
+    modules by path ./node_modules/.pnpm/css-loader@7.1.2_webpack@5.93.0_webpack-cli@5.1.4_/node_mod...(truncated) 3.33 KiB 3 modules
+    ./node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js 531 KiB [built] [code generated]
+  modules by path ./src/ 4.32 KiB
+    modules by path ./src/*.js 874 bytes 3 modules
+    modules by path ./src/*.css 3.47 KiB
+      ./src/style.css 1.66 KiB [built] [code generated]
+      ./node_modules/.pnpm/css-loader@7.1.2_webpack@5.93.0_webpack-cli@5.1.4_/node_modules/css-loader/dist/cjs.js!./src/style.css 1.81 KiB [built] [code generated]
+asset modules 84 bytes (javascript) 4.57 MiB (asset)
+  ./src/image.png 42 bytes (javascript) 2.6 MiB (asset) [built] [code generated]
+  ./src/PretendardVariable.woff2 42 bytes (javascript) 1.96 MiB (asset) [built] [code generated]
+webpack 5.93.0 compiled successfully in 327 ms
+```
+
+- `optimization.splitChunks` 설정 옵션을 적용하면 `index.bundle.js` 와 `another.bundle.js`에서 중복 의존성이 제거된 것을 확인할 수 있습니다. lodash가 별도의 청크로 분리 되었고, 메인 번들에서 제거되었습니다.
+
+- `webpack-bundle-analyzer` 를 통한 분석 결과에서도 확인할 수 있습니다.
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/043e211e-4ffe-49f0-95bc-ff972088be86">
+
+### Dynamic Imports
+
+- `dynamic imports` 를 사용하여 정적으로 import 하던 모듈을 동적으로 가져와서 청크를 분리할 수 있습니다.
+
+### Prefetching/Preloading modules
 
