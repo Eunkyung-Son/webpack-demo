@@ -12,13 +12,13 @@ module.exports = {
     // another: "./src/another-module.js",
     index: {
       import: "./src/index.js",
-      dependOn: "shared",
+      // dependOn: "shared",
     },
-    another: {
-      import: "./src/another-module.js",
-      dependOn: "shared",
-    },
-    shared: "lodash",
+    // another: {
+    //   import: "./src/another-module.js",
+    //   dependOn: "shared",
+    // },
+    // shared: "lodash",
   },
   devtool: "inline-source-map",
   /**
@@ -35,12 +35,15 @@ module.exports = {
     clean: true,
     publicPath: "/",
   },
-  /** 단일 html 페이지에 하나 이상의 엔트리 포인트가 있기에 추가 */
   optimization: {
-    runtimeChunk: "single",
+    /** 단일 html 페이지에 하나 이상의 엔트리 포인트가 있기에 추가 */
+    // runtimeChunk: "single",
+    // splitChunks: {
+    //   chunks: "all",
+    // },
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       // title: "Output Management",
       title: "Development",
