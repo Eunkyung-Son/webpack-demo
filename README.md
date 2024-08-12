@@ -151,7 +151,7 @@ Webpack의 기본 설정 안에는 몇 가지 기본 플러그인이 포함되�
 - `webpack-dev-middleware`는 `webpack`에서 처리한 파일을 서버로 내보내는 래퍼 입니다.
 - `webpack-dev-middleware`와 `express` 서버를 결합할 수 있고 포트 번호를 설정할 수 있습니다.
 
-# 2024.07.31 / 08.01 / 08.05
+# 2024.07.31 / 08.01 / 08.05 / 08.12
 
 ## Code Splitting
 
@@ -284,4 +284,31 @@ webpack 5.93.0 compiled successfully in 327 ms
 - `dynamic imports` 를 사용하여 정적으로 import 하던 모듈을 동적으로 가져와서 청크를 분리할 수 있습니다.
 
 ### Prefetching/Preloading modules
+
+- prefetch : 향후 일부 탐색에 리소스가 필요할 수 있습니다.
+- preload : 현재 탐색 중에 리소스도 필요합니다.
+
+```
+//...
+import(/* webpackPrefetch: true */ './path/to/LoginModal.js');
+```
+```
+<link rel="prefetch" href="login-modal-chunk.js">
+```
+`prefetch` 힌트를 통하여 브라우저에 `login-modal-chunk.js`를 유휴시간에 미리 가져오도록 지시합니다.
+`webpack`은 부모 청크가 로드된 후 프리페치 힌트를 추가합니다.
+
+- 프리로드 청크는 부모 청크와 **병렬**로 로드를 시작합니다. 프리페치 청크는 부모 청크가 **로드 완료된 후**에 **로드를 시작**합니다.
+- 프리로드 청크는 **중간 우선순위**를 가지며 **즉시 다운로드**됩니다. 프리페치 청크는 브라우저가 **유휴 상태**일 때 다운로드 됩니다.
+- 프리로드 청크는 **부모 청크에서 즉시 요청** 되어야 합니다. 프리페치 청크는 **나중에 언제라도** 사용할 수 있습니다.
+- 지원하는 브라우저에 차이가 있습니다.
+- 프리로드는 자신만의 제어가 필요합니다. 모든 동적 import의 프리로드는 비동기 스크립트를 통해 수행할 수 있습니다.
+
+```
+//...
+import(/* webpackPreload: true */ 'ChartingLibrary');
+```
+ChartComponent를 사용하는 페이지를 요청할 때 <link rel="preload">를 통해 charting-library-chunk도 요청됩니다. page-chunk가 더 작고 더 빨리 완료된다고 가정하면 이미 요청된 charting-library-chunk가 완료될 때까지 페이지에는 LoadingIndicator가 표시됩니다. 두 번이 아닌 한 번의 라운드 트립이 필요하므로 대기 시간이 긴 환경에서 로드 시간이 증가할 수 있습니다.
+
+
 
