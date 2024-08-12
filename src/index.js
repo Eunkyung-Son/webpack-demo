@@ -1,7 +1,7 @@
 import _ from "lodash";
 import "./style.css";
 import MyLocalImage from "./image.png";
-import printMe from "./print.js";
+import Print from "./print";
 
 async function getComponent() {
   // const element = document.createElement("div");
@@ -21,6 +21,8 @@ async function getComponent() {
   const element = document.createElement("div");
   const { default: _ } = await import("lodash");
   element.innerHTML = _.join(["Hello", "webpack"], " ");
+  element.onclick = Print.bind(null, "Hello webpack!");
+
   return element;
 
   // 정적으로 import 하던 lodash를 동적으로 import하여 청크를 분리

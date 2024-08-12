@@ -30,7 +30,8 @@ module.exports = {
   },
   output: {
     // filename: "bundle.js",
-    filename: "[name].bundle.js",
+    // filename: "[name].bundle.js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
     publicPath: "/",
@@ -41,12 +42,22 @@ module.exports = {
     // splitChunks: {
     //   chunks: "all",
     // },
+    moduleIds: "deterministic",
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
+    },
   },
   plugins: [
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       // title: "Output Management",
-      title: "Development",
+      title: "Caching",
     }),
   ],
   // devtool: "source-map",
